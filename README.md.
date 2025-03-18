@@ -1,0 +1,15 @@
+# Silver Coin  
+A decentralized token on the TON blockchain, inspired by Bitcoin's principles of purity, security, and fairness.  
+
+## Features  
+- Fixed supply (21 million Silver Coins).  
+- Proof of Importance mechanism.  
+- Secure and transparent smart contract.  
+
+## Repository Structure  
+- `SilverCoin.fc` - The main smart contract.  
+- `/docs` - Documentation and guides.  
+- `/scripts` - Automation for deployment and testing.  
+
+## How to Contribute  
+This is a joint project. Feel free to suggest improvements!
