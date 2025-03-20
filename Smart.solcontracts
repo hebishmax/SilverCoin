@@ -1,0 +1,125 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/*
+    Interfaces for standard ERC20 tokens (like USDT, USDC, Silver Coin, and Galaxy Meme Coin)
+    and the DEX router (e.g., Pancakeswap) for adding liquidity.
+*/
+
+// Standard ERC20 interface (simplified)
+interface IERC20 {
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transfer(address recipient, uint256 amount) external returns (bool);
+    // Additional ERC20 functions can be added as needed.
+}
+
+// Interface for a DEX router supporting liquidity functions.
+interface IDEXRouter {
+    function addLiquidity(
+        address tokenA,
+        address tokenB,
+        uint256 amountADesired,
+        uint256 amountBDesired,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountA, uint256 amountB, uint256 liquidity);
+}
+
+/*
+    Smart Contract:
+    Provides liquidity provision functions for:
+      - Silver Coin paired with either USDT or USDC.
+      - Galaxy Meme Coin paired with either USDT or USDC.
+
+    This contract supports both stablecoins in a single function by allowing
+    the caller to specify which stablecoin to use. The contract validates that
+    the stable coin provided is either our approved USDT or USDC.
+*/
+contract Smart {
+    // Token addresses for our stablecoins and project tokens.
+    address public usdt;
+    address public usdc;
+    address public silverCoin;
+    address public galaxyMemeCoin;
+    
+    // Address of the DEX router (for example, Pancakeswap's router)
+    address public dexRouter;
+
+    // Set token and router addresses in the constructor.
+    constructor(
+        address _usdt,
+        address _usdc,
+        address _silverCoin,
+        address _galaxyMemeCoin,
+        address _dexRouter
+    ) {
+        usdt = _usdt;
+        usdc = _usdc;
+        silverCoin = _silverCoin;
+        galaxyMemeCoin = _galaxyMemeCoin;
+        dexRouter = _dexRouter;
+    }
+
+    // Internal function to validate that the stable coin is either USDT or USDC.
+    function _validateStableCoin(address stableCoin) internal view {
+        require(stableCoin == usdt || stableCoin == usdc, "Invalid stable coin address");
+    }
+
+    // Add liquidity for the Silver Coin paired with a stable coin (USDT or USDC).
+    function addLiquiditySilverCoin(
+        address stableCoin,
+        uint256 silverAmount,
+        uint256 stableAmount,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        uint256 deadline
+    ) external {
+        _validateStableCoin(stableCoin);
+
+        // Approve the DEX router to spend Silver Coin and the specified stable coin.
+        require(IERC20(silverCoin).approve(dexRouter, silverAmount), "Approval failed for Silver Coin");
+        require(IERC20(stableCoin).approve(dexRouter, stableAmount), "Approval failed for stable coin");
+
+        // Call the DEX router's addLiquidity function.
+        IDEXRouter(dexRouter).addLiquidity(
+            silverCoin,
+            stableCoin,
+            silverAmount,
+            stableAmount,
+            amountAMin,
+            amountBMin,
+            msg.sender,
+            deadline
+        );
+    }
+
+    // Add liquidity for the Galaxy Meme Coin paired with a stable coin (USDT or USDC).
+    function addLiquidityGalaxyCoin(
+        address stableCoin,
+        uint256 galaxyAmount,
+        uint256 stableAmount,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        uint256 deadline
+    ) external {
+        _validateStableCoin(stableCoin);
+
+        // Approve the DEX router to spend Galaxy Meme Coin and the specified stable coin.
+        require(IERC20(galaxyMemeCoin).approve(dexRouter, galaxyAmount), "Approval failed for Galaxy Meme Coin");
+        require(IERC20(stableCoin).approve(dexRouter, stableAmount), "Approval failed for stable coin");
+
+        // Call the DEX router's addLiquidity function.
+        IDEXRouter(dexRouter).addLiquidity(
+            galaxyMemeCoin,
+            stableCoin,
+            galaxyAmount,
+            stableAmount,
+            amountAMin,
+            amountBMin,
+            msg.sender,
+            deadline
+        );
+    }
+}
