@@ -2,8 +2,9 @@
 pragma ton-solidity >= 0.45.0;
 
 interface IERC20 {
-    function approve(address spender, uint256 amount) external returns (bool);
     function transferFrom(address from, address to, uint256 amount) external returns (bool);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transfer(address to, uint256 amount) external returns (bool);
 }
 
 interface IDEXRouter {
@@ -25,6 +26,13 @@ contract Smart {
     address public silverCoin;
     address public galaxyMemeCoin;
     address public dexRouter;
+    address public admin = "UQBw5LzsDZXeVBtKIOCOOc2eKN689ffblcK-qazXoE52qU6d";
+    uint256 constant FEE_PERCENTAGE = 5; // 5%
+
+    modifier onlyAdmin() {
+        require(msg.sender == admin, 101, "المطلوب: الأدمن فقط");
+        _;
+    }
 
     constructor(
         address _usdt,
@@ -53,14 +61,18 @@ contract Smart {
         uint256 deadline
     ) external {
         _validateStableCoin(stableCoin);
+        require(IERC20(silverCoin).transferFrom(msg.sender, address(this), silverAmount), 101, "فشل نقل الفضية");
+        require(IERC20(stableCoin).transferFrom(msg.sender, address(this), stableAmount), 101, "فشل نقل العملة المستقرة");
+        uint256 fee = stableAmount * FEE_PERCENTAGE / 100;
+        uint256 netStable = stableAmount - fee;
+        require(IERC20(stableCoin).transfer(admin, fee), 101, "فشل تحويل الرسوم");
         require(IERC20(silverCoin).approve(dexRouter, silverAmount), 101, "فشل الموافقة للفضية");
-        require(IERC20(stableCoin).approve(dexRouter, stableAmount), 101, "فشل الموافقة للعملة المستقرة");
-
+        require(IERC20(stableCoin).approve(dexRouter, netStable), 101, "فشل الموافقة للعملة المستقرة");
         IDEXRouter(dexRouter).addLiquidity(
             silverCoin,
             stableCoin,
             silverAmount,
-            stableAmount,
+            netStable,
             amountAMin,
             amountBMin,
             msg.sender,
@@ -77,14 +89,18 @@ contract Smart {
         uint256 deadline
     ) external {
         _validateStableCoin(stableCoin);
+        require(IERC20(galaxyMemeCoin).transferFrom(msg.sender, address(this), galaxyAmount), 101, "فشل نقل المجرة");
+        require(IERC20(stableCoin).transferFrom(msg.sender, address(this), stableAmount), 101, "فشل نقل العملة المستقرة");
+        uint256 fee = stableAmount * FEE_PERCENTAGE / 100;
+        uint256 netStable = stableAmount - fee;
+        require(IERC20(stableCoin).transfer(admin, fee), 101, "فشل تحويل الرسوم");
         require(IERC20(galaxyMemeCoin).approve(dexRouter, galaxyAmount), 101, "فشل الموافقة للمجرة");
-        require(IERC20(stableCoin).approve(dexRouter, stableAmount), 101, "فشل الموافقة للعملة المستقرة");
-
+        require(IERC20(stableCoin).approve(dexRouter, netStable), 101, "فشل الموافقة للعملة المستقرة");
         IDEXRouter(dexRouter).addLiquidity(
             galaxyMemeCoin,
             stableCoin,
             galaxyAmount,
-            stableAmount,
+            netStable,
             amountAMin,
             amountBMin,
             msg.sender,
