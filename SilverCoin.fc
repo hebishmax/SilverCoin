@@ -1,61 +1,40 @@
-/* SilverCoin.fc */
+// SPDX-License-Identifier: MIT
+pragma ton-solidity >= 0.45.0;
 
-#include "stdlib.fc"
+contract SilverCoin {
+    address public admin = "UQBw5LzsDZXeVBtKIOCOOc2eKN689ffblcK-qazXoE52qU6d";
+    uint128 public totalSupply;
+    mapping(address => uint128) public balances;
+    event Transfer(address indexed from, address indexed to, uint128 amount);
 
-const int128 DECIMALS = 1000000000;
-const int128 FIXED_SUPPLY = 21000000 * DECIMALS;
-const int FEE_DIVISOR = 1000;
-
-struct State {
-    int128 totalSupply;
-    map balances;      // mapping(slice => int128)
-    map importance;    // mapping(slice => int128)
-    slice owner;
-    slice partner;
-};
-
-int constructor(slice in, State *state) {
-    state->owner = msg_sender();
-    state->partner = get_partner_address();
-    state->totalSupply = FIXED_SUPPLY;
-    map_put(state->balances, state->owner, FIXED_SUPPLY);
-    return 0;
-}
-
-int transfer(slice in, State *state) {
-    (slice recipient, int128 amount) = parse_transfer_input(in);
-    slice sender = msg_sender();
-    int128 sender_balance = map_get(state->balances, sender);
-    if (sender_balance < amount) {
-        return -1;
+    modifier onlyAdmin() {
+        require(msg.sender == admin, 101, "المطلوب: الأدمن فقط");
+        _;
     }
-    map_put(state->balances, sender, sender_balance - amount);
-    int128 recipient_balance = map_get(state->balances, recipient);
-    map_put(state->balances, recipient, recipient_balance + amount);
-    int128 imp = map_get(state->importance, sender);
-    map_put(state->importance, sender, imp + calculate_importance(amount));
-    int128 fee = amount / FEE_DIVISOR;
-    int128 new_sender_balance = map_get(state->balances, sender);
-    if (new_sender_balance >= fee) {
-        map_put(state->balances, sender, new_sender_balance - fee);
-        int128 partner_balance = map_get(state->balances, state->partner);
-        map_put(state->balances, state->partner, partner_balance + fee);
+
+    constructor() public {
+        tvm.accept();
+        totalSupply = 21000000 * 1000000000;
+        balances[msg.sender] = totalSupply;
     }
-    return 0;
-}
 
-int128 calculate_importance(int128 amount) {
-    return amount / DECIMALS;
-}
+    function transfer(address recipient, uint128 amount) public {
+        require(balances[msg.sender] >= amount, 101, "الرصيد غير كافٍ");
+        tvm.accept();
+        balances[msg.sender] -= amount;
+        balances[recipient] += amount;
+        emit Transfer(msg.sender, recipient, amount);
+    }
 
-slice msg_sender() {
-    // Implementation-specific: return the sender's address as a slice.
-}
+    function mint(address recipient, uint128 amount) public onlyAdmin {
+        tvm.accept();
+        totalSupply += amount;
+        balances[recipient] += amount;
+        emit Transfer(address(0), recipient, amount);
+    }
 
-slice get_partner_address() {
-    // Implementation-specific: return the predefined partner address.
-}
-
-(tuple(slice, int128)) parse_transfer_input(slice in) {
-    // Implementation-specific: parse 'in' to extract recipient address and transfer amount.
+    function changeAdmin(address newAdmin) public onlyAdmin {
+        tvm.accept();
+        admin = newAdmin;
+    }
 }
