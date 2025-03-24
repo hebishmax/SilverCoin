@@ -1,0 +1,13 @@
+{
+  "name": "SilverCoin",
+  "version": "1.0.0",
+  "description": "Unified Smart Contract for SilverCoin",
+  "main": "UnifiedToken.sol",
+  "scripts": {
+    "build": "func -o UnifiedToken.fif -SPA UnifiedToken.sol",
+    "deploy": "tonos-cli deploy UnifiedToken.fif {} --abi UnifiedToken.abi.json --sign keyfile.json"
+  },
+  "author": "YourName",
+  "license": "MIT",
+  "dependencies": {}
+}
