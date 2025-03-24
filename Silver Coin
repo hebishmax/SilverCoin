@@ -1,0 +1,82 @@
+// SPDX-License-Identifier: MIT
+pragma ton-solidity >= 0.45.0;
+
+interface IDEXRouter {
+    function addLiquidity(
+        address tokenA,
+        address tokenB,
+        uint256 amountADesired,
+        uint256 amountBDesired,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountA, uint256 amountB, uint256 liquidity);
+}
+
+contract UnifiedToken {
+    address public admin = address.makeAddrStd(0, 0x5LzsDZXeVBtKIOCOOc2eKN689ffblcKqazXoE52qU6d);
+    uint128 public totalSupply;
+    mapping(address => uint128) public balances;
+    address public dexRouter;
+    uint8 public constant FEE_PERCENT = 2;
+
+    event Transfer(address indexed from, address indexed to, uint128 amount);
+
+    modifier onlyAdmin() {
+        require(msg.sender == admin, 101, "Unauthorized");
+        _;
+    }
+
+    constructor(address _dexRouter) public {
+        tvm.accept();
+        dexRouter = _dexRouter;
+        totalSupply = 21000000 * 10**9;
+        balances[admin] = totalSupply;
+    }
+
+    function transfer(address recipient, uint128 amount) public {
+        tvm.accept();
+        require(balances[msg.sender] >= amount, 102);
+        uint128 fee = (amount * FEE_PERCENT) / 100;
+        uint128 netAmount = amount - fee;
+        balances[msg.sender] -= amount;
+        balances[recipient] += netAmount;
+        balances[admin] += fee;
+        emit Transfer(msg.sender, recipient, netAmount);
+    }
+
+    function mint(address recipient, uint128 amount) public onlyAdmin {
+        tvm.accept();
+        totalSupply += amount;
+        balances[recipient] += amount;
+        emit Transfer(address(0), recipient, amount);
+    }
+
+    function addLiquidity(
+        address tokenB,
+        uint128 amountToken,
+        uint128 amountTokenB
+    ) public onlyAdmin {
+        tvm.accept();
+        IDEXRouter(dexRouter).addLiquidity(
+            address(this),
+            tokenB,
+            amountToken,
+            amountTokenB,
+            0,
+            0,
+            admin,
+            now + 1 days
+        );
+    }
+
+    function changeAdmin(address newAdmin) public onlyAdmin {
+        tvm.accept();
+        admin = newAdmin;
+    }
+
+    function balanceOf(address account) public view returns (uint128) {
+        return balances[account];
+    }
+}
