@@ -1,31 +1,40 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Silver | الفضة</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الفضة | Silver</title>
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 50px;
-      background-color: #f2f2f2;
-    }
-    h1 {
-      color: #555;
-    }
-    img {
-      max-width: 150px;
-      margin-bottom: 20px;
-    }
+    body { font-family: sans-serif; text-align: center; margin: 30px; }
+    #wallet-address { margin-top: 10px; font-size: 0.9em; color: gray; }
+    button { padding: 10px 20px; font-size: 1em; cursor: pointer; margin-top: 20px; }
   </style>
 </head>
 <body>
-  <img src="https://ipfs.io/ipfs/bafkreidrdsuvvz272cpwhpmo6uacipbszakjplouwmuido37l5kwrf4ute" alt="Silver Logo">
-  <h1>مرحبا بكم في مشروع الفضة</h1>
-  <p>مبادرة تثقيفية مالية واستثمارية من الشرق الأوسط وشمال أفريقيا</p>
-  <footer style="margin-top: 50px; font-size: 0.9em;">
-    مشروع تدريبي مشترك بين <strong>Hebish</strong> و <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
+  <h1 id="title">مشروع الفضة</h1>
+  <p id="description">مرحبًا بك في مشروع التوعية المالية عبر البلوكتشين</p>
+
+  <button onclick="connectWallet()">اتصل بمحفظة MetaMask</button>
+  <p id="wallet-address"></p>
+
+  <footer style="text-align:center; font-size: 0.9em; margin-top: 50px;">
+    <p>مشروع تدريبي مشترك بين <strong>Hebish</strong> و <a href="https://chat.openai.com/" target="_blank">ChatGPT</a></p>
   </footer>
+
+  <script>
+    async function connectWallet() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+          const address = accounts[0];
+          document.getElementById('0x61916c290c837cd1fe283dcf56801bc3a16f7b6f').innerText = `تم الاتصال: ${address}`;
+        } catch (error) {
+          alert("حدث خطأ أثناء الاتصال بالمحفظة.");
+        }
+      } else {
+        alert("الرجاء تثبيت MetaMask أولاً.");
+      }
+    }
+  </script>
 </body>
 </html>
