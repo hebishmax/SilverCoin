@@ -1,28 +1,114 @@
-<script>
-  function copyWallet() {
-    const wallet = "0x61916c290c837cd1fe283dcf56801bc3a16f7b6f";
-    navigator.clipboard.writeText(wallet).then(() => {
-      alert("تم نسخ العنوان بنجاح!");
-    });
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silver | الفضة</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+    header {
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid silver;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #777;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      margin: 0 10px;
+      color: #555;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 1.8em;
+      color: #444;
+    }
+    .hero p {
+      font-size: 1.1em;
+      color: #666;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .cta-button {
+      background-color: silver;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #aaa;
+      padding: 20px;
+    }
+    .language-switch {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+    .language-switch button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: transparent;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="language-switch">
+    <button onclick="setLanguage('en')">EN</button>
+    <button onclick="setLanguage('ar')">AR</button>
+  </div>
 
-  function setLanguage(lang) {
-    if (lang === 'ar') {
-      document.getElementById('title').innerText = "الفضة | Silver";
-      document.getElementById('nav-articles').innerText = "المقالات";
-      document.getElementById('nav-donate').innerText = "تبرع";
-      document.getElementById('nav-contact').innerText = "اتصل بنا";
-      document.getElementById('hero-title').innerText = "نحو وعي مالي في المنطقة";
-      document.getElementById('hero-text').innerText = "الفضة منصة ثنائية اللغة تهدف لنشر الوعي الاستثماري وتوجيه المجتمعات بعيدًا عن المضاربة نحو قرارات مالية واعية.";
-      document.getElementById('wallet-title').innerText = "محفظة المشروع:";
-    } else {
-      document.getElementById('title').innerText = "Silver | الفضة";
-      document.getElementById('nav-articles').innerText = "Articles";
-      document.getElementById('nav-donate').innerText = "Donate";
-      document.getElementById('nav-contact').innerText = "Contact";
-      document.getElementById('hero-title').innerText = "Empower financial awareness across the region";
-      document.getElementById('hero-text').innerText = "Silver is a bilingual platform aiming to spread investment awareness and guide communities away from speculation and toward informed financial decisions.";
-      document.getElementById('wallet-title').innerText = "Project Wallet:";
-    }
-  }
-</script>
+  <header>
+    <h1 id="title">Silver | الفضة</h1>
+    <nav>
+      <a href="#articles" id="nav-articles">Articles | المقالات</a>
+      <a href="#donate" id="nav-donate">Donate | تبرع</a>
+      <a href="#contact" id="nav-contact">Contact | اتصل بنا</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2 id="hero-title">Empower financial awareness across the region</h2>
+    <p id="hero-text">
+      Silver is a bilingual platform aiming to spread investment awareness and guide communities away from speculation and toward informed financial decisions.
+    </p>
+    
+    <h3 id="wallet-title">Project Wallet:</h3>
+    <p id="wallet-address" style="user-select: all; font-weight: bold;">
+      0x61916c290c837cd1fe283dcf56801bc3a16f7b6f
+    </p>
+    <button class="cta-button" onclick="copyWallet()">نسخ العنوان</button>
+    <p style="font-size: 0.9em; color: #888; margin-top: 10px;">
+      يرجى استخدام MetaMask أو محفظة متوافقة مع BNB (BSC) لإرسال الدعم.
+    </p>
+  </section>
+
+  <footer class="footer">
+    &copy; 2025 Silver Platform. All rights reserved.
+  </footer>
+
+  <script>
