@@ -8,26 +8,26 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #ffffff;
-      color: #333;
+      background-color: #fafafa;
+      color: #222;
     }
     header {
-      background-color: #f0f0f0;
+      background-color: #e0e0e0;
       padding: 20px;
       text-align: center;
-      border-bottom: 2px solid silver;
+      border-bottom: 2px solid #aaa;
     }
     header h1 {
       margin: 0;
-      font-size: 2em;
-      color: #777;
+      font-size: 2.2em;
+      color: #444;
     }
     nav {
       margin-top: 10px;
     }
     nav a {
       margin: 0 10px;
-      color: #555;
+      color: #333;
       text-decoration: none;
       font-weight: bold;
     }
@@ -36,43 +36,57 @@
       text-align: center;
     }
     .hero h2 {
-      font-size: 1.8em;
-      color: #444;
+      font-size: 2em;
+      color: #333;
     }
     .hero p {
-      font-size: 1.1em;
-      color: #666;
+      font-size: 1.2em;
+      color: #555;
       max-width: 600px;
       margin: 20px auto;
     }
     .cta-button {
-      background-color: silver;
+      background-color: #888;
       color: white;
       padding: 12px 25px;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 1em;
       cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: #666;
     }
     .footer {
       margin-top: 50px;
       text-align: center;
       font-size: 0.9em;
-      color: #aaa;
+      color: #888;
       padding: 20px;
     }
     .language-switch {
       position: absolute;
-      top: 10px;
+      top: 15px;
       right: 20px;
     }
     .language-switch button {
       margin-left: 5px;
       padding: 5px 10px;
       cursor: pointer;
-      background-color: transparent;
+      background-color: #eee;
       border: 1px solid #ccc;
       border-radius: 4px;
+    }
+    #wallet-address {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-top: 15px;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 6px;
+      display: inline-block;
     }
   </style>
 </head>
@@ -86,29 +100,4 @@
     <h1 id="title">Silver | الفضة</h1>
     <nav>
       <a href="#articles" id="nav-articles">Articles | المقالات</a>
-      <a href="#donate" id="nav-donate">Donate | تبرع</a>
-      <a href="#contact" id="nav-contact">Contact | اتصل بنا</a>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <h2 id="hero-title">Empower financial awareness across the region</h2>
-    <p id="hero-text">
-      Silver is a bilingual platform aiming to spread investment awareness and guide communities away from speculation and toward informed financial decisions.
-    </p>
-    
-    <h3 id="wallet-title">Project Wallet:</h3>
-    <p id="wallet-address" style="user-select: all; font-weight: bold;">
-      0x61916c290c837cd1fe283dcf56801bc3a16f7b6f
-    </p>
-    <button class="cta-button" onclick="copyWallet()">نسخ العنوان</button>
-    <p style="font-size: 0.9em; color: #888; margin-top: 10px;">
-      يرجى استخدام MetaMask أو محفظة متوافقة مع BNB (BSC) لإرسال الدعم.
-    </p>
-  </section>
-
-  <footer class="footer">
-    &copy; 2025 Silver Platform. All rights reserved.
-  </footer>
-
-  <script>
+      <a href="#
