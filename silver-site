@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silver | الفضة</title>
+  <link rel="icon" href="https://ipfs.io/ipfs/bafkreidrdsuvvz272cpwhpmo6uacipbszakjplouwmuido37l5kwrf4ute" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+      background: #f8f9fa;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    img.logo {
+      width: 80px;
+      border-radius: 50%;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1em;
+    }
+    .tweets {
+      margin-top: 40px;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+    .tweet {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://ipfs.io/ipfs/bafkreidrdsuvvz272cpwhpmo6uacipbszakjplouwmuido37l5kwrf4ute" alt="Silver Logo" class="logo" />
+    <h1 id="title">مشروع الفضة</h1>
+    <button onclick="toggleLang()">English</button>
+  </header>
+
+  <section class="tweets">
+    <div class="tweet" id="t1">نبدأ بخواطر رقمية نحو وعي مالي واستثماري حقيقي.</div>
+    <div class="tweet" id="t2">الهدف ليس المضاربة، بل الفهم والتمكين عبر مشاريع حقيقية.</div>
+    <div class="tweet" id="t3">في الفضة نعيد تعريف التقنية لخدمة الإنسان لا استغلاله.</div>
+  </section>
+
+  <footer>
+    <p>مشروع تدريبي مشترك بين <strong>Hebish</strong> و <a href="https://chat.openai.com/" target="_blank">ChatGPT</a></p>
+  </footer>
+
+  <script>
+    let isArabic = true;
+    function toggleLang() {
+      isArabic = !isArabic;
+      document.documentElement.lang = isArabic ? "ar" : "en";
+      document.documentElement.dir = isArabic ? "rtl" : "ltr";
+      document.getElementById("title").innerText = isArabic ? "مشروع الفضة" : "Silver Project";
+      document.querySelector("button").innerText = isArabic ? "English" : "العربية";
+      document.getElementById("t1").innerText = isArabic
+        ? "نبدأ بخواطر رقمية نحو وعي مالي واستثماري حقيقي."
+        : "We begin with digital thoughts toward real financial awareness.";
+      document.getElementById("t2").innerText = isArabic
+        ? "الهدف ليس المضاربة، بل الفهم والتمكين عبر مشاريع حقيقية."
+        : "The goal isn’t speculation, but understanding and empowerment through real projects.";
+      document.getElementById("t3").innerText = isArabic
+        ? "في الفضة نعيد تعريف التقنية لخدمة الإنسان لا استغلاله."
+        : "In Silver, we redefine tech to serve people, not exploit them.";
+    }
+  </script>
+</body>
+</html>
