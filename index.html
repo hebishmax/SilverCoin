@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +8,9 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #fafafa;
+      background-color: #f9f9f9;
       color: #222;
+      direction: rtl;
     }
     header {
       background-color: #e0e0e0;
@@ -54,10 +55,6 @@
       font-size: 1em;
       cursor: pointer;
       margin-top: 10px;
-      transition: background-color 0.3s ease;
-    }
-    .cta-button:hover {
-      background-color: #666;
     }
     .footer {
       margin-top: 50px;
@@ -66,24 +63,10 @@
       color: #888;
       padding: 20px;
     }
-    .language-switch {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-    }
-    .language-switch button {
-      margin-left: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-      background-color: #eee;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
     #wallet-address {
       font-weight: bold;
       font-size: 1.1em;
-      margin-top: 15px;
-      background-color: #f4f4f4;
+      background-color: #f0f0f0;
       padding: 10px;
       border-radius: 6px;
       display: inline-block;
@@ -91,13 +74,40 @@
   </style>
 </head>
 <body>
-  <div class="language-switch">
-    <button onclick="setLanguage('en')">EN</button>
-    <button onclick="setLanguage('ar')">AR</button>
-  </div>
-
   <header>
-    <h1 id="title">Silver | الفضة</h1>
+    <h1>Silver | الفضة</h1>
     <nav>
-      <a href="#articles" id="nav-articles">Articles | المقالات</a>
-      <a href="#
+      <a href="#articles">المقالات</a>
+      <a href="#donate">تبرع</a>
+      <a href="#contact">اتصل بنا</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>نحو وعي مالي في المنطقة</h2>
+    <p>الفضة هي منصة ثنائية اللغة تهدف إلى نشر الوعي الاستثماري وتوجيه المجتمعات بعيدًا عن المضاربة نحو قرارات مالية ذكية.</p>
+
+    <h3>عنوان محفظة التبرع:</h3>
+    <div id="wallet-address">0x61916c290c837cd1fe283dcf56801bc3a16f7b6f</div><br>
+    <button class="cta-button" onclick="copyWallet()">نسخ العنوان</button>
+    <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+      يرجى استخدام MetaMask أو أي محفظة تدعم BNB (BSC) لإرسال التبرعات.
+    </p>
+  </section>
+
+  <footer class="footer">
+    &copy; 2025 منصة الفضة. جميع الحقوق محفوظة.
+  </footer>
+
+  <script>
+    function copyWallet() {
+      const wallet = document.getElementById("wallet-address").innerText;
+      navigator.clipboard.writeText(wallet).then(function () {
+        alert("تم نسخ عنوان المحفظة!");
+      }, function (err) {
+        alert("حدث خطأ أثناء النسخ.");
+      });
+    }
+  </script>
+</body>
+</html>
