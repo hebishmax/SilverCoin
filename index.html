@@ -1,40 +1,28 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>الفضة | Silver</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; margin: 30px; }
-    #wallet-address { margin-top: 10px; font-size: 0.9em; color: gray; }
-    button { padding: 10px 20px; font-size: 1em; cursor: pointer; margin-top: 20px; }
-  </style>
-</head>
-<body>
-  <h1 id="title">مشروع الفضة</h1>
-  <p id="description">مرحبًا بك في مشروع التوعية المالية عبر البلوكتشين</p>
+<script>
+  function copyWallet() {
+    const wallet = "0x61916c290c837cd1fe283dcf56801bc3a16f7b6f";
+    navigator.clipboard.writeText(wallet).then(() => {
+      alert("تم نسخ العنوان بنجاح!");
+    });
+  }
 
-  <button onclick="connectWallet()">اتصل بمحفظة MetaMask</button>
-  <p id="wallet-address"></p>
-
-  <footer style="text-align:center; font-size: 0.9em; margin-top: 50px;">
-    <p>مشروع تدريبي مشترك بين <strong>Hebish</strong> و <a href="https://chat.openai.com/" target="_blank">ChatGPT</a></p>
-  </footer>
-
-  <script>
-    async function connectWallet() {
-      if (typeof window.ethereum !== 'undefined') {
-        try {
-          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-          const address = accounts[0];
-          document.getElementById('0x61916c290c837cd1fe283dcf56801bc3a16f7b6f').innerText = `تم الاتصال: ${address}`;
-        } catch (error) {
-          alert("حدث خطأ أثناء الاتصال بالمحفظة.");
-        }
-      } else {
-        alert("الرجاء تثبيت MetaMask أولاً.");
-      }
-    }
-  </script>
-</body>
-</html>
+  function setLanguage(lang) {
+    if (lang === 'ar') {
+      document.getElementById('title').innerText = "الفضة | Silver";
+      document.getElementById('nav-articles').innerText = "المقالات";
+      document.getElementById('nav-donate').innerText = "تبرع";
+      document.getElementById('nav-contact').innerText = "اتصل بنا";
+      document.getElementById('hero-title').innerText = "نحو وعي مالي في المنطقة";
+      document.getElementById('hero-text').innerText = "الفضة منصة ثنائية اللغة تهدف لنشر الوعي الاستثماري وتوجيه المجتمعات بعيدًا عن المضاربة نحو قرارات مالية واعية.";
+      document.getElementById('wallet-title').innerText = "محفظة المشروع:";
+    } else {
+      document.getElementById('title').innerText = "Silver | الفضة";
+      document.getElementById('nav-articles').innerText = "Articles";
+      document.getElementById('nav-donate').innerText = "Donate";
+      document.getElementById('nav-contact').innerText = "Contact";
+      document.getElementById('hero-title').innerText = "Empower financial awareness across the region";
+      document.getElementById('hero-text').innerText = "Silver is a bilingual platform aiming to spread investment awareness and guide communities away from speculation and toward informed financial decisions.";
+      document.getElementById('wallet-title').innerText = "Project Wallet:";
+    }
+  }
+</script>
