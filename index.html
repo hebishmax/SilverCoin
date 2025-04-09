@@ -1,113 +1,102 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Silver | الفضة</title>
+  <meta charset="UTF-8">
+  <title>الوحدة الرقمية</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
+      font-family: Tahoma, sans-serif;
+      background: #f4f7f8;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-      color: #222;
-      direction: rtl;
-    }
-    header {
-      background-color: #e0e0e0;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 2px solid #aaa;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.2em;
-      color: #444;
-    }
-    nav {
-      margin-top: 10px;
-    }
-    nav a {
-      margin: 0 10px;
-      color: #333;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .hero {
-      padding: 60px 20px;
+      padding: 30px;
       text-align: center;
     }
-    .hero h2 {
-      font-size: 2em;
-      color: #333;
+    h1 {
+      font-size: 2.5em;
+      background: linear-gradient(90deg, #00aaff, #00cc88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
     }
-    .hero p {
-      font-size: 1.2em;
-      color: #555;
-      max-width: 600px;
+    p.main-message {
+      font-size: 1.4em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    img {
+      max-width: 340px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
       margin: 20px auto;
     }
-    .cta-button {
-      background-color: #888;
-      color: white;
+    .btn {
+      display: inline-block;
+      margin: 15px 10px;
       padding: 12px 25px;
-      border: none;
+      background-color: #0088cc;
+      color: white;
+      text-decoration: none;
       border-radius: 8px;
       font-size: 1em;
+      transition: background 0.3s;
       cursor: pointer;
-      margin-top: 10px;
     }
-    .footer {
-      margin-top: 50px;
-      text-align: center;
-      font-size: 0.9em;
-      color: #888;
-      padding: 20px;
+    .btn:hover {
+      background-color: #006699;
     }
-    #wallet-address {
-      font-weight: bold;
-      font-size: 1.1em;
-      background-color: #f0f0f0;
-      padding: 10px;
-      border-radius: 6px;
-      display: inline-block;
+    .hidden {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Silver | الفضة</h1>
-    <nav>
-      <a href="#articles">المقالات</a>
-      <a href="#donate">تبرع</a>
-      <a href="#contact">اتصل بنا</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <h2>نحو وعي مالي في المنطقة</h2>
-    <p>الفضة هي منصة ثنائية اللغة تهدف إلى نشر الوعي الاستثماري وتوجيه المجتمعات بعيدًا عن المضاربة نحو قرارات مالية ذكية.</p>
+  <h1>أهلاً في المستقبل</h1>
+  <p class="main-message">الوحدة الرقمية — أول عملة على الإنترنت العادي، تمتلكها وتحملها معك أينما ذهبت.</p>
 
-    <h3>عنوان محفظة التبرع:</h3>
-    <div id="wallet-address">0x61916c290c837cd1fe283dcf56801bc3a16f7b6f</div><br>
-    <button class="cta-button" onclick="copyWallet()">نسخ العنوان</button>
-    <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
-      يرجى استخدام MetaMask أو أي محفظة تدعم BNB (BSC) لإرسال التبرعات.
-    </p>
-  </section>
+  <!-- استبدل رابط الصورة برابط IPFS -->
+  <img src="https://ipfs.io/ipfs/bafkreidrdsuvvz272cpwhpmo6uacipbszakjplouwmuido37l5kwrf4ute" alt="الوحدة رقم 1">
 
-  <footer class="footer">
-    &copy; 2025 منصة الفضة. جميع الحقوق محفوظة.
-  </footer>
+  <canvas id="chart" width="300" height="200"></canvas>
+  <br>
+  <button class="btn" onclick="copyWallet()">نسخ محفظة المشروع</button>
+  <a href="mailto:hebishpartner@gmail.com" class="btn">حجز عبر البريد</a>
+  <input type="text" value="0x61916c290c837cd1fe283dcf56801bc3a16f7b6f" id="walletAddress" class="hidden">
 
   <script>
+    // إعداد الرسم البياني باستخدام Chart.js
+    const ctx = document.getElementById('chart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['اليوم 1', 'اليوم 2', 'اليوم 3', 'اليوم 4', 'اليوم 5'],
+        datasets: [{
+          label: 'نمو الوحدة الرقمية',
+          data: [1, 1.5, 2, 3.5, 5],
+          borderColor: 'green',
+          backgroundColor: 'rgba(0,128,0,0.1)',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    // دالة نسخ المحفظة
     function copyWallet() {
-      const wallet = document.getElementById("wallet-address").innerText;
-      navigator.clipboard.writeText(wallet).then(function () {
-        alert("تم نسخ عنوان المحفظة!");
-      }, function (err) {
-        alert("حدث خطأ أثناء النسخ.");
-      });
+      const copyText = document.getElementById("walletAddress");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("تم نسخ عنوان المحفظة:\n" + copyText.value);
     }
   </script>
+
 </body>
 </html>
