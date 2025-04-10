@@ -2,24 +2,18 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <!-- للتأكد من استجابة الموقع على مختلف الأجهزة -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>حلول اعتماد الرموز الرقمية - الوحدة الرقمية</title>
-  <!-- وصف الميتا لتحسين محركات البحث -->
   <meta name="description" content="موقع الوحدة الرقمية يقدم حلول اعتماد رموز التوكن الرقمية من خلال خدمات مبتكرة لتوثيق التوكنات الرقمية وبساطة الاستخدام.">
-  <!-- كلمات مفتاحية باللغة العربية -->
   <meta name="keywords" content="اعتماد الرموز الرقمية, توثيق التوكن, حلول التوكنات الرقمية, الوحدة الرقمية">
-  <!-- السماح لمحركات البحث بفهرسة الموقع -->
   <meta name="robots" content="index, follow">
   
-  <!-- بيانات Open Graph لتحسين مشاركة الموقع عبر شبكات التواصل -->
   <meta property="og:title" content="حلول اعتماد الرموز الرقمية - الوحدة الرقمية">
   <meta property="og:description" content="موقع الوحدة الرقمية يقدم حلول اعتماد رموز التوكن الرقمية من خلال خدمات مبتكرة لتوثيق التوكنات الرقمية وبساطة الاستخدام.">
   <meta property="og:image" content="https://ipfs.io/ipfs/bafkreidrdsuvvz272cpwhpmo6uacipbszakjplouwmuido37l5kwrf4ute">
   <meta property="og:url" content="https://v0-silver-nine.vercel.app/">
   <meta property="og:type" content="website">
 
-  <!-- مكتبة Chart.js للرسم البياني -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
@@ -70,7 +64,6 @@
     }
   </style>
 
-  <!-- بيانات منظمة باستخدام Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -87,7 +80,6 @@
   <p class="main-message">
     موقع لتقديم حلول اعتماد رموز التوكن الرقمية Digital Token Accreditation Solutions.
   </p>
-  <!-- استبدل رابط الصورة برابط IPFS -->
   <img src="https://ipfs.io/ipfs/bafkreidrdsuvvz272cpwhpmo6uacipbszakjplouwmuido37l5kwrf4ute" alt="الوحدة رقم 1">
   <canvas id="chart" width="300" height="200"></canvas>
   <br>
@@ -96,7 +88,6 @@
   <input type="text" value="0x61916c290c837cd1fe283dcf56801bc3a16f7b6f" id="walletAddress" class="hidden">
   
   <script>
-    // إعداد الرسم البياني باستخدام Chart.js
     const ctx = document.getElementById('chart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
@@ -117,7 +108,6 @@
       }
     });
     
-    // دالة نسخ المحفظة
     function copyWallet() {
       const copyText = document.getElementById("walletAddress");
       copyText.select();
