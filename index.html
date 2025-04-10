@@ -35,7 +35,8 @@
       margin-bottom: 20px;
     }
     img {
-      max-width: 340px;
+      max-width: 100%;
+      width: 340px;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0,0,0,0.15);
       margin: 20px auto;
@@ -59,6 +60,35 @@
       opacity: 0;
       position: absolute;
       pointer-events: none;
+    }
+    /* استعلامات الوسائط لجعل الصفحة أكثر استجابة */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+      p.main-message {
+        font-size: 1.2em;
+      }
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+      }
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      p.main-message {
+        font-size: 1em;
+      }
+      .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 1em;
+      }
+      img {
+        width: 100%;
+      }
     }
   </style>
   <script type="application/ld+json">
